@@ -4,7 +4,7 @@ from googleapiclient.http import MediaFileUpload
 
 def upload_to_drive(file_path, file_name):
     # Google Drive API kimlik bilgileri
-    creds = service_account.Credentials.from_service_account_file('credentials.json')
+    creds = service_account.Credentials.from_service_account_file('api.json')
     service = build('drive', 'v3', credentials=creds)
     
     # Yüklenecek dosya için medya ayarlaması
