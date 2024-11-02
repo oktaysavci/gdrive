@@ -23,11 +23,25 @@ def upload_to_drive(file_path, file_name):
         fields='id'
     ).execute()
     
-    print(f"Dosya başarıyla yüklendi. Dosya ID'si: {file.get('id')}")
+    file_id = file.get('id')
+    print(f"Dosya başarıyla yüklendi. Dosya ID'si: {file_id}")
+    
+    # Dosyaya herkese açık erişim izni ekle
+    permission = {
+        'type': 'anyone',  # Dosyayı herkese açar
+        'role': 'reader'   # Yalnızca okuma izni verir
+    }
+    
+    service.permissions().create(
+        fileId=file_id,
+        body=permission
+    ).execute()
+    
+    print("Dosya herkese açık hale getirildi.")
 
+# Kullanıcıdan dosya yolunu ve adını iste
 file_path = input("Lütfen yüklenecek dosyanın yolunu girin: ")
 file_name = input("Google Drive'da görünecek dosya adını girin: ")
 
 # Dosyayı yükle
 upload_to_drive(file_path, file_name)
-
